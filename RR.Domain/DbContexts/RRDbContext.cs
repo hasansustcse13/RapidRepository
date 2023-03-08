@@ -15,6 +15,8 @@ namespace RR.Domain.DbContexts
         {
             modelBuilder.ApplyConfiguration(new EmployeeMapper());
             modelBuilder.ApplyConfiguration(new DepartmentMapper());
+
+            SeedData.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Employee> Employees { get; set; }
