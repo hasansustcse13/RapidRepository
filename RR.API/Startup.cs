@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RR.Domain.DbContexts;
+using RR.Domain.Repositories;
 
 namespace RR.API
 {
@@ -21,6 +22,7 @@ namespace RR.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RRDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("RRDbConnection")));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddControllers();
         }
 
