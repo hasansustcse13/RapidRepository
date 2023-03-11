@@ -20,7 +20,7 @@ namespace RR.Domain.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<T> Get(Expression<Func<T, bool>> expression, List<string> includes = null)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> expression, List<string> includes = null)
         {
             IQueryable<T> query = _dbSet;
             if (includes != null)
@@ -34,7 +34,7 @@ namespace RR.Domain.Repositories
             return await query.AsNoTracking().FirstOrDefaultAsync(expression);
         }
 
-        public async Task<IList<T>> GetAll(Expression<Func<T, bool>> expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<string> includes = null)
+        public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<string> includes = null)
         {
             IQueryable<T> query = _dbSet;
 
@@ -59,12 +59,12 @@ namespace RR.Domain.Repositories
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task Insert(T entity)
+        public async Task InsertAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
         }
 
-        public async Task InsertRange(IEnumerable<T> entities)
+        public async Task InsertRangeAsync(IEnumerable<T> entities)
         {
             await _dbSet.AddRangeAsync(entities);
         }
@@ -75,7 +75,7 @@ namespace RR.Domain.Repositories
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await _dbSet.FindAsync(id);
             _dbSet.Remove(entity);

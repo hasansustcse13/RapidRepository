@@ -17,12 +17,12 @@ namespace RR.Service.Services
 
         public async Task<IEnumerable<Department>> GetAllDepartmentsAsync()
         {
-            return await _repository.GetAll();
+            return await _repository.GetAllAsync();
         }
 
         public async Task<Department> InsertDepartmentAsync(Department department)
         {
-            await _repository.Insert(department);
+            await _repository.InsertAsync(department);
             await _repository.SaveChangesAsync();
             return department;
         }
